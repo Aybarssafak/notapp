@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './login.css';
+import './login.css'
 
 const Login = () => {
     const navigate = useNavigate(); 
@@ -16,10 +16,7 @@ const Login = () => {
         return;
       } 
 
-      // Backend URL'ini Vercel'den alıyoruz
-      const backendUrl = process.env.REACT_APP_BACKEND_URL;
-
-      axios.post(`${backendUrl}/`, { email, password }) // URL'i güncelledik
+      axios.post('http://localhost:8081/', { email, password })
         .then(res => {
           if (res.data.success) {  
             navigate('/notapp');
@@ -30,7 +27,7 @@ const Login = () => {
         .catch(err => {
           console.log(err);
           setError('Login failed, please try again.');
-        });
+      });
     }
 
     return ( 

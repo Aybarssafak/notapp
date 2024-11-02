@@ -18,13 +18,10 @@ const NoteDetail = () => {
   const [title, setTitle] = useState('');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  // Backend URL'ini Vercel'den alıyoruz
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
-
   useEffect(() => {
     const fetchNote = async () => {
       try {
-        const response = await axios.get(`${backendUrl}/notes/${id}`);
+        const response = await axios.get(`http://localhost:8081/notes/${id}`);
         const noteData = response.data.note;
         setNote(noteData);
         setTitle(noteData.title);
@@ -42,7 +39,7 @@ const NoteDetail = () => {
       }
     };
     fetchNote();
-  }, [id, backendUrl]);
+  }, [id]);
 
   const handleEditorChange = (state) => {
     setEditorState(state);
@@ -52,7 +49,7 @@ const NoteDetail = () => {
     const confirmDelete = window.confirm('Notu silmek istediğinize emin misiniz?');
     if (confirmDelete) {
       try {
-        await axios.delete(`${backendUrl}/notes/${id}`);
+        await axios.delete(`http://localhost:8081/notes/${id}`);
         navigate('/notapp');
       } catch (err) {
         console.error(err);
@@ -70,7 +67,7 @@ const NoteDetail = () => {
     const html = draftToHtml(convertToRaw(editorState.getCurrentContent()));
     
     try {
-      const response = await axios.put(`${backendUrl}/notes/${id}`, {
+      const response = await axios.put(`http://localhost:8081/notes/${id}`, {
         title,
         contents: html,
       });

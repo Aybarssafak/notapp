@@ -26,10 +26,7 @@ const CreateNot = () => {
             return;
         }
 
-        // Backend URL'ini Vercel'den alıyoruz
-        const backendUrl = process.env.REACT_APP_BACKEND_URL;
-
-        axios.post(`${backendUrl}/addnote`, { title, contents: html }) // URL'i güncelledik
+        axios.post('http://localhost:8081/addnote', { title, contents: html })
             .then((res) => {
                 setMessage(res.data.message);
                 setTitle('');

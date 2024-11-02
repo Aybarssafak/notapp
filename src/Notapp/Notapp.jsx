@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // useNavigate'i kullanın
 import './Notapp.css';
 
 const NotApp = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // useNavigate'i burada tanımlayın
 
-  // Backend URL'ini Vercel'den alıyoruz
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     fetchNotes();
@@ -18,7 +16,7 @@ const NotApp = () => {
 
   const fetchNotes = async () => {
     try {
-      const response = await axios.get(`${backendUrl}/notes`); // URL'i güncelledik
+      const response = await axios.get('http://localhost:8081/notes');
       setNotes(response.data.notes);
       setLoading(false);
     } catch (err) {
@@ -29,16 +27,17 @@ const NotApp = () => {
   };
 
   const handleNoteClick = (id) => {
-    navigate(`/note/${id}`);
+    navigate(`/note/${id}`); // useNavigate ile yönlendirme
   };
 
   return (
     <>
       <div className='nav'>
-        <h1 style={{ color: 'white' }}>Opinify</h1>
-        <h1 style={{ color: 'white' }}>Notes</h1>
+        <h1 style={{color: 'white'}}>Opinify</h1>
+        <h1 style={{color: 'white'}}>Notes</h1>
         <button><a href="/create">Create Notes</a></button>
       </div>
+
 
       <div className="notes-container">
         <h2>Saved Notes</h2>
@@ -54,7 +53,7 @@ const NotApp = () => {
               <div 
                 key={note.id} 
                 className="note" 
-                onClick={() => handleNoteClick(note.id)}
+                onClick={() => handleNoteClick(note.id)} // Tıklama olayı
               >
                 <h3>{note.title}</h3>
                 <div 
