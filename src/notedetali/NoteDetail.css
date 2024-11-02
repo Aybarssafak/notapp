@@ -1,0 +1,80 @@
+.note-detail {
+  padding: 20px;
+  max-width: 700px; /* Maksimum genişlik */
+  margin: auto; /* Ortalar */
+  background-color: #ffffff; /* Arka plan rengi beyaz */
+  border-radius: 8px; /* Kenar yuvarlama */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+  transition: all 0.3s ease; /* Geçiş efekti */
+}
+
+.note-detail h2 {
+  text-align: center; /* Başlığı ortalar */
+  color: #333; /* Başlık rengi koyu gri */
+  margin-bottom: 15px; /* Alt boşluk */
+}
+
+.note-detail p {
+  color: #666; /* Paragraf rengi açık gri */
+  font-size: 14px; /* Yazı tipi boyutu */
+}
+
+.note-detail .button-container {
+  display: flex; /* Esnek kutu */
+  justify-content: space-between; /* Düğmeleri yan yana yerleştir */
+  margin-top: 20px; /* Üst boşluk */
+}
+
+.note-detail button {
+  padding: 10px 15px; /* Düğme iç boşluk */
+  border: none; /* Kenarlık yok */
+  border-radius: 5px; /* Kenar yuvarlama */
+  font-size: 16px; /* Yazı tipi boyutu */
+  cursor: pointer; /* İmleç değişimi */
+  transition: background-color 0.3s ease; /* Arka plan geçişi */
+}
+
+.note-detail button:hover {
+  opacity: 0.9; /* Hover durumunda opaklığı azalt */
+}
+
+.note-detail button:focus {
+  outline: none; /* Odaklandığında kenarlığı kaldır */
+}
+
+.note-detail button[type="submit"] {
+  background-color: #4CAF50; /* Güncelle butonu için yeşil arka plan */
+  color: white; /* Yazı rengi beyaz */
+}
+
+
+
+.note-detail button[style*="color: red"] {
+  background-color: #f44336; /* Sil butonu için kırmızı arka plan */
+  color: white; /* Yazı rengi beyaz */
+}
+
+.note-detail input[type="text"] {
+  width: 100%; /* Genişlik ayarı */
+  padding: 10px; /* İç boşluk */
+  border: 1px solid #ccc; /* Kenarlık */
+  border-radius: 5px; /* Kenar yuvarlama */
+  margin-bottom: 20px; /* Alt boşluk */
+  font-size: 16px; /* Yazı tipi boyutu */
+}
+
+.note-detail input[type="text"]:focus {
+  border-color: #4CAF50; /* Odaklandığında kenarlık rengi yeşil */
+  outline: none; /* Kenarlık yok */
+}
+
+.backBtn button{
+  width: 60px;
+  height: 30px;
+  margin-left: 30px;
+  margin-top: 40px;
+  color: white;
+  background: royalblue;
+  border: none;
+  border-radius: 5px;
+}
