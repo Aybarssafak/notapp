@@ -74,9 +74,7 @@ const CreateNot = () => {
                             borderRadius: '10px',
                             marginBottom: '30px'
                         }}>Add</button>
-                        <label style={{
-                            marginLeft: '500px'
-                        }}>Contents</label>
+                        <label>Contents</label>
                         <Editor value={html} onChange={onChange} />
                     </div>
                     
