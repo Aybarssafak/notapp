@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
-import { EditorState, convertToRaw } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import draftToHtml from 'draftjs-to-html';
+import Editor from 'react-simple-wysiwyg';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './createNot.css';
 
 const CreateNot = () => {
     const [title, setTitle] = useState('');
-    const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [message, setMessage] = useState('');
+    const [html, setHtml] = useState('');
     const navigate = useNavigate();
 
-    const handleEditorChange = (state) => {
-        setEditorState(state);
-    };
+    function onChange(e) {
+        setHtml(e.target.value);
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const html = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
         if (!title || !html.trim()) {
             setMessage("Please fill in both title and contents.");
@@ -30,7 +26,6 @@ const CreateNot = () => {
             .then((res) => {
                 setMessage(res.data.message);
                 setTitle('');
-                setEditorState(EditorState.createEmpty());
             })
             .catch((error) => {
                 console.error(error);
@@ -66,26 +61,25 @@ const CreateNot = () => {
                         />
                     </div>
                     <div className="contents">
-                        <label>Contents</label>
-                        <Editor
-                            editorState={editorState}
-                            toolbarClassName="toolbarClassName"
-                            wrapperClassName="wrapperClassName"
-                            editorClassName="editorClassName"
-                            onEditorStateChange={handleEditorChange}
-                        />
+                        <button type="submit" style={{
+                            marginLeft: '30px',
+                            marginRight: '30px',
+                            marginTop: '30px',
+                            height: '40px',
+                            width: '70px',
+                            fontSize: '20px',
+                            color: 'white',
+                            background: 'green',
+                            border: 'none',
+                            borderRadius: '10px',
+                            marginBottom: '30px'
+                        }}>Add</button>
+                        <label style={{
+                            marginLeft: '500px'
+                        }}>Contents</label>
+                        <Editor value={html} onChange={onChange} />
                     </div>
-                    <button type="submit" style={{
-                        marginLeft: '30px',
-                        marginTop: '30px',
-                        height: '40px',
-                        width: '70px',
-                        fontSize: '20px',
-                        color: 'white',
-                        background: 'green',
-                        border: 'none',
-                        borderRadius: '10px'
-                    }}>Add</button>
+                    
                 </form>
                 {message && <p>{message}</p>}
             </div>
