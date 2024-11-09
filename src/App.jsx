@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Router, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Notapp from './Notapp/Notapp.jsx';
 import CreateNot from './createNot/createNot.jsx';
 import Login from './login/login.jsx'
