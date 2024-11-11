@@ -58,7 +58,8 @@ const NotApp = () => {
                 <h3>{note.title}</h3>
                 <div 
                   className="note-contents" 
-                  dangerouslySetInnerHTML={{ __html: note.contents }}
+                  dangerouslySetInnerHTML={{ __html: note.contents.substring(0, 200)}}
+                  
                 />
                 <p className="note-date">Created at: {new Date(note.created_at).toLocaleString()}</p>
               </div>
