@@ -16,7 +16,7 @@ const Login = () => {
         return;
       } 
 
-      axios.post('http://localhost:8081/', { email, password })
+      axios.post('http://localhost:8082/', { email, password })
         .then(res => {
           if (res.data.success) {  
             navigate('/notapp');

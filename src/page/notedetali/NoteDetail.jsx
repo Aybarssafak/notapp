@@ -12,20 +12,19 @@ const NoteDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [note, setNote] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState('');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchNote = async () => {
       try {
-        const response = await axios.get(`http://localhost:8081/notes/${id}`);
+        const response = await axios.get(`http://localhost:8082/notes/${id}`);
         const noteData = response.data.note;
         setNote(noteData);
         setTitle(noteData.title);
-        
+
         // Convert HTML to DraftJS content state
         const blocksFromHtml = htmlToDraft(noteData.contents);
         const { contentBlocks, entityMap } = blocksFromHtml;
@@ -34,10 +33,9 @@ const NoteDetail = () => {
       } catch (err) {
         console.error(err);
         setError('Not yüklenirken bir hata oluştu.');
-      } finally {
-        setLoading(false);
       }
     };
+
     fetchNote();
   }, [id]);
 
@@ -49,7 +47,7 @@ const NoteDetail = () => {
     const confirmDelete = window.confirm('Notu silmek istediğinize emin misiniz?');
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8081/notes/${id}`);
+        await axios.delete(`http://localhost:8082/notes/${id}`);
         navigate('/notapp');
       } catch (err) {
         console.error(err);
@@ -65,9 +63,9 @@ const NoteDetail = () => {
   const handleUpdate = async (event) => {
     event.preventDefault();
     const html = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-    
+
     try {
-      const response = await axios.put(`http://localhost:8081/notes/${id}`, {
+      const response = await axios.put(`http://localhost:8082/notes/${id}`, {
         title,
         contents: html,
       });
@@ -79,9 +77,9 @@ const NoteDetail = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  // Loading and error handling
+  if (!note && !error) return <p>Loading...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
-  if (!note) return <p>Not bulunamadı.</p>;
 
   return (
     <>
@@ -89,7 +87,6 @@ const NoteDetail = () => {
         <button onClick={() => navigate('/notapp')}>Back</button>
       </div>
       <div className="note-detail">
-        
         {isEditing ? (
           <form onSubmit={handleUpdate}>
             <h2>Update</h2>
@@ -115,7 +112,7 @@ const NoteDetail = () => {
             <h2>{note.title}</h2>
             <div dangerouslySetInnerHTML={{ __html: note.contents }} />
             <p>Created at: {new Date(note.created_at).toLocaleString()}</p>
-            
+
             <div className="button-container">
               <button onClick={handleEdit} style={{background: 'RoyalBlue', color: 'white'}}>Update</button>
               <button onClick={handleDelete} style={{ color: 'White', background: 'FireBrick' }}>Delete</button>

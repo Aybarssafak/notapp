@@ -16,7 +16,7 @@ const NotApp = () => {
 
   const fetchNotes = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/notes');
+      const response = await axios.get('http://localhost:8082/notes');
       setNotes(response.data.notes);
       setLoading(false);
     } catch (err) {

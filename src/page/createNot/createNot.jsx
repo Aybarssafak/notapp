@@ -22,7 +22,7 @@ const CreateNot = () => {
             return;
         }
 
-        axios.post('http://localhost:8081/addnote', { title, contents: html })
+        axios.post('http://localhost:8082/addnote', { title, contents: html })
             .then((res) => {
                 setMessage(res.data.message);
                 setTitle('');
